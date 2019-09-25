@@ -10,6 +10,8 @@ function netlifyPlugin(conf) {
   var PLUGIN_CACHE_DIR;
 
   // Use temporary methods until implemented in core
+  // While this emulates the planned cache utls API, it does not
+  // currently pesist in the Netlify CI between builds.
   var tempUtils = {
 
     cache : {
@@ -46,7 +48,6 @@ function netlifyPlugin(conf) {
     }
 
   };
-
 
 
   // Add the content from a feed to the .netlify cache
