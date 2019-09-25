@@ -104,7 +104,7 @@ function netlifyPlugin(conf) {
     // Hook into lifecycle
     init: (data) => {
       // set up our caching location
-      PLUGIN_CACHE_DIR = `${data.constants.CACHE_DIR}/rss-plugin-data`;
+      PLUGIN_CACHE_DIR = `${data.constants.CACHE_DIR}/netlify-plugin-fetch-feeds`;
       if (!fs.existsSync(PLUGIN_CACHE_DIR)){
         fs.mkdirSync(PLUGIN_CACHE_DIR, {recursive: true})
       };
