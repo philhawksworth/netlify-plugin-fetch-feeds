@@ -1,0 +1,24 @@
+{
+  "name": "netlify-plugin-fetch-feeds",
+  "version": "0.1.0",
+  "description": "A Netlify plugin to source content from remote feeds including RSS and JSON",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "foo"
+  },
+  "keywords": [
+    "netlify",
+    "jamstack",
+    "rss",
+    "ssg",
+    "feed",
+    "data",
+    "plugin"
+  ],
+  "author": "Phil Hawksworth",
+  "license": "ISC"
+}
