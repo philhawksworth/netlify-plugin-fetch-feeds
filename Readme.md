@@ -15,6 +15,10 @@ Use this plugin in combination with other plugins to present the gathered data i
 - netlify-plugin-yield-data-for-hugo
 - netlify-plugin-yield-data-for-gatsby
 
+## Demonstration
+
+See this plugin being used in this simplified demo site: https://demo-plugin-fetch-feed.netlify.com
+
 
 ## Usage
 
