@@ -31,7 +31,7 @@ Use this plugin in combination with other plugins to present the gathered data i
 This plugin can be included via npm. Install it as a dependency for your project like so:
 
 ```
-npm install --save @philhawksworth/netlify-plugin-fetch-feeds
+npm install --save netlify-plugin-fetch-feeds
 ```
 
 ### Configuration
