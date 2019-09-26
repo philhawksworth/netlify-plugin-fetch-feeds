@@ -21,7 +21,7 @@ Use this plugin in combination with other plugins to present the gathered data i
 ### Prerequisites
 
 - npm and node
-- Netlify-Build (later this will be included in the Netlify CLI)
+- @Netlify/build (later this will be included in the Netlify CLI)
 - A free [Netlify account](https://netlify.com)
 - Opt-in to Netlify Build Plugin feature support (Not yet publicly available, sorry)
 
@@ -36,7 +36,7 @@ npm install --save netlify-plugin-fetch-feeds
 
 ### Configuration
 
-This plugin will fetch the specified feeds and stash their data prior to the execution of the `build` command you have specified i your Netlify configuration. The desired feeds can be specified in the `netlify.toml` config file. For simpler configuration syntax, I recommend using yaml rather than toml by instead including a `netlify.yml` file.
+This plugin will fetch the specified feeds and stash their data prior to the execution of the `build` command you have specified in your Netlify configuration. The desired feeds can be specified in the `netlify.toml` config file. For simpler configuration syntax, I recommend using yaml rather than toml by instead including a `netlify.yml` file.
 
 To use plugins, a `plugins` array should be specified in your `netlify.yml`. Each plugin can then be specified with its parameters like so:
 
