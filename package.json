@@ -1,6 +1,6 @@
 {
   "name": "netlify-plugin-fetch-feeds",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A Netlify plugin to source content from remote feeds including RSS and JSON",
   "main": "index.js",
   "scripts": {
