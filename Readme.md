@@ -46,9 +46,12 @@ To use plugins, a `plugins` array should be specified in your `netlify.yml`. Eac
 
 ```yaml
 plugins:
-  - netlify-plugin-fetch-feeds:
-    # Make the content from these feeds available to templates
-    # in our SSG via a collection with a given name
+  # Make the content from these feeds available to templates
+  # in our SSG via a collection with a given name
+  fetch-feeds:
+    # type: ./path-to-plugin-file | npm-module-name
+    type: netlify-plugin-fetch-feeds
+    config:
       feeds:
         # - name: used as a key for our data collection
         #   url: where to find this resource, in xml or json format
@@ -59,8 +62,8 @@ plugins:
         - name: hawksworx
           url: https://hawksworx.com/feed.json
           ttl: 180  # 3 minutes
-
 ```
+
 
 ### Execution in Netlify
 

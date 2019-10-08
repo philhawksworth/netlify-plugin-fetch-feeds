@@ -121,7 +121,7 @@ function netlifyPlugin(conf) {
       };
     },
 
-    postinstall: (data) => {
+    postInstall: (data) => {
       // fetch and cache all the feeds
       conf.feeds.forEach(feed => {
         var tll = feed.ttl ? feed.ttl : null;
