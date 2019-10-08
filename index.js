@@ -105,7 +105,17 @@ function netlifyPlugin(conf) {
     // Hook into lifecycle
     init: (data) => {
       // set up our caching location
-      PLUGIN_CACHE_DIR = `${data.constants.CACHE_DIR}/netlify-plugin-fetch-feeds`;
+      // if we are in prod, use the persisting cache location
+      // otherwise use a local, relative location
+      const prodCache = '/opt/build/cache';
+      if (fs.existsSync(prodCache)) {
+        PLUGIN_CACHE_DIR = `${prodCache}/netlify-plugin-fetch-feeds`;
+        console.log('prodCache exists. Cache here:', PLUGIN_CACHE_DIR);
+      } else {
+        PLUGIN_CACHE_DIR = `${data.constants.CACHE_DIR}/netlify-plugin-fetch-feeds`;
+        console.log('We are local. Cache here:', PLUGIN_CACHE_DIR);
+      }
+
       if (!fs.existsSync(PLUGIN_CACHE_DIR)){
         fs.mkdirSync(PLUGIN_CACHE_DIR, {recursive: true})
       };
