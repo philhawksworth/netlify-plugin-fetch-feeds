@@ -103,7 +103,7 @@ function netlifyPlugin(conf) {
   return {
 
     // Hook into lifecycle
-    init: (data) => {
+    onInit: (data) => {
       // set up our caching location
       // if we are in prod, use the persisting cache location
       // otherwise use a local, relative location
@@ -121,7 +121,7 @@ function netlifyPlugin(conf) {
       };
     },
 
-    postInstall: (data) => {
+    onPostInstall: (data) => {
       // fetch and cache all the feeds
       conf.feeds.forEach(feed => {
         var tll = feed.ttl ? feed.ttl : null;
