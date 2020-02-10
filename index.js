@@ -101,7 +101,7 @@ function netlifyPlugin(conf) {
 
 
   return {
-
+    name: 'fetch-rss-feeds',
     // Hook into lifecycle
     onInit: (data) => {
       // set up our caching location
