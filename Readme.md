@@ -1,7 +1,6 @@
-# netlify-plugin-fetch-feeds
+# Netlify Plugin - Fetch Feeds
 
-A Netlify plugin to source content from remote feeds including RSS and JSON, and cache them between builds.
-
+This [plugin](https://www.netlify.com/build/plugins-beta?utm_source=github&utm_medium=plugin-htmlminifier-pnh&utm_campaign=devex) adds the ability to source content from remote feeds including RSS and JSON, and cache them between builds.
 
 ## Overview
 
