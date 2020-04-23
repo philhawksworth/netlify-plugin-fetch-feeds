@@ -1,135 +1,48 @@
-const fs     = require('fs');
-const axios  = require('axios');
-const feed   = require('rss-to-json');
+const fs      = require('fs');
+const fetch   = require('node-fetch');
+const parser  = require('rss-to-json');
+const chalk   = require('chalk');
 
 
-function netlifyPlugin(conf) {
 
-  // For convenient access.
-  // At init, ensure the paths are created.
-  var PLUGIN_CACHE_DIR;
+module.exports = {
 
-  // Use temporary methods until implemented in core
-  // While this emulates the planned cache utls API, it does not
-  // currently pesist in the Netlify CI between builds.
-  var tempUtils = {
+  async onPreBuild({ inputs, utils }) {
 
-    cache : {
-      // Save the data with an optional expiry date
-      save: (props) => {
-        const data = {
-          'expires': props.ttl ? (new Date().valueOf() + (props.ttl * 1000)) : null,
-          'content': props.content
-        };
-        // write our cache file
-        fs.writeFile(`${PLUGIN_CACHE_DIR}/${props.file}`, JSON.stringify(data), err => {
-          if(err) {
-            console.log(`Problem while saving: ${props.file}`, err);
-          } else {
-            console.log(`Data saved: ${props.file}`);
-          }
-        });
-      },
+    // Gather the data from all the specified feeds
+    for (const feed of inputs.feeds) {
 
-      // Return the data held in a given cache file
-      get: (props) => {
-        return require(`${PLUGIN_CACHE_DIR}/${props.file}`).content;
-      },
+      // Where fetched data should reside in the buid
+      let dataFilePath = `${inputs.dataDir}/${feed.name}.json`;
 
-      // Check if a cached file has exceeded its ttl or if it is still valid
-      check: (props) => {
-        try {
-          var cached = require(`${PLUGIN_CACHE_DIR}/${props.file}`);
-          return !(new Date().valueOf() > cached.expires);
-        } catch {
-          return false;
-        }
+      // reinstate from cache if it is present
+      if ( await utils.cache.has(dataFilePath) ) {
+        await utils.cache.restore(dataFilePath);
+        console.log('Restored from cache: ', chalk.green(feed.url));
       }
-    }
+      // Or if it's not cached, let's fetch it and cache it.
+      else {
+        var data = await fetch(feed.url)
+          .then(async function(res) {
 
-  };
-
-
-  // Add the content from a feed to the .netlify cache
-  function getFeed(name, url, ttl) {
-
-    // check if we have a vaild cache for this item
-    var cached = tempUtils.cache.check({'file': `${name}.json`});
-
-    // If cached and within ttl, don't fetch
-    if(cached) {
-      console.log(`${name} - still freshly cached from ${url}`);
-    } else {
-      // otherwise fetch data and save with a ttl
-      console.log(`${name} - fetching from ${url} with a ttl of ${ttl} seconds`);
-
-      // support both json and xml formats (should we really?)
-      if(url.indexOf(".js") != -1) {
-        axios.get(url)
-          .then(response => {
-            // save the data to the cache
-            tempUtils.cache.save({
-              'file': `${name}.json`,
-              'content': JSON.stringify(response.data),
-              'ttl': ttl
-            });
-          })
-          .catch(err => {
-            console.log(`Error while fetching ${url}`, err);
+            // Stash all data as JSON.
+            let contentType = res.headers.get('content-type').toLowerCase();
+            if(contentType == 'application/json') {
+              return res.json();
+            } else {
+              let text = await res.text();
+              let json = parser.toJson(text);
+              return JSON.parse(json);
+            }
           });
 
-      } else {
-
-        // using traditional xml rss
-        feed.load(url, function(err, rss){
-
-          // save the data to the cache
-          tempUtils.cache.save({
-            'file': `${name}.json`,
-            'content': JSON.stringify(rss),
-            'ttl': ttl
-          });
-          if(err) {
-            console.log(`Error while fetching ${url}`, err);
-          }
-        });
+        // put the fetched data in the daa file, and then cahce it.
+        // await saveFeed(JSON.stringify(data), dataFilePath);
+        await fs.writeFileSync(dataFilePath, JSON.stringify(data));
+        await utils.cache.save(dataFilePath, { ttl: feed.ttl });
+        console.log('Fetched and cached: ',  chalk.blue(feed.url), chalk.gray(`(TTL:${feed.ttl} seconds)`));
 
       }
-
     }
   }
-
-
-  return {
-
-    // Hook into lifecycle
-    init: (data) => {
-      // set up our caching location
-      // if we are in prod, use the persisting cache location
-      // otherwise use a local, relative location
-      const prodCache = '/opt/build/cache';
-      if (fs.existsSync(prodCache)) {
-        PLUGIN_CACHE_DIR = `${prodCache}/netlify-plugin-fetch-feeds`;
-        console.log('prodCache exists. Cache here:', PLUGIN_CACHE_DIR);
-      } else {
-        PLUGIN_CACHE_DIR = `${data.constants.CACHE_DIR}/netlify-plugin-fetch-feeds`;
-        console.log('We are local. Cache here:', PLUGIN_CACHE_DIR);
-      }
-
-      if (!fs.existsSync(PLUGIN_CACHE_DIR)){
-        fs.mkdirSync(PLUGIN_CACHE_DIR, {recursive: true})
-      };
-    },
-
-    postInstall: (data) => {
-      // fetch and cache all the feeds
-      conf.feeds.forEach(feed => {
-        var tll = feed.ttl ? feed.ttl : null;
-        getFeed(feed.name, feed.url, tll);
-      });
-    }
-
-  };
-};
-
-module.exports = netlifyPlugin;
+}

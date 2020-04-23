@@ -1,11 +1,8 @@
 {
   "name": "netlify-plugin-fetch-feeds",
-  "version": "0.1.7",
-  "description": "A Netlify plugin to source content from remote feeds including RSS and JSON",
+  "version": "0.2.0",
+  "description": "A Netlify plugin to fetch and cache content from remote feeds including RSS and JSON",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"No test specified\""
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/philhawksworth/netlify-plugin-fetch-feeds"
@@ -15,12 +12,16 @@
     "rss",
     "ssg",
     "feed",
-    "data"
+    "data",
+    "cache",
+    "plugin",
+    "jamstack"
   ],
   "author": "Phil Hawksworth",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.0",
+    "chalk": "^4.0.0",
+    "node-fetch": "^2.6.0",
     "rss-to-json": "^1.0.5"
   }
 }
