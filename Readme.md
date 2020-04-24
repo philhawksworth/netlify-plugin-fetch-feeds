@@ -11,7 +11,7 @@ Configure this plugin to present the gathered data in the appropriate location, 
 
 ## Demonstration
 
-See this plugin being used in this simplified demo site: https://demo-plugin-fetch-feed.netlify.app/
+See this plugin being used in this simplified demo site: https://demo-plugin-fetch-feeds.netlify.app/
 
 
 ## Installation
