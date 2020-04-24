@@ -17,7 +17,7 @@ module.exports = {
       // reinstate from cache if it is present
       if ( await utils.cache.has(dataFilePath) ) {
         await utils.cache.restore(dataFilePath);
-        console.log('Restored from cache: ', chalk.green(feed.url));
+        console.log('Restored from cache:', chalk.green(feed.url));
       }
       // Or if it's not cached, let's fetch it and cache it.
       else {
@@ -39,7 +39,7 @@ module.exports = {
         // await saveFeed(JSON.stringify(data), dataFilePath);
         await fs.writeFileSync(dataFilePath, JSON.stringify(data));
         await utils.cache.save(dataFilePath, { ttl: feed.ttl });
-        console.log('Fetched and cached: ',  chalk.blue(feed.url), chalk.gray(`(TTL:${feed.ttl} seconds)`));
+        console.log('Fetched and cached: ', chalk.blue(feed.url), chalk.gray(`(TTL:${feed.ttl} seconds)`));
 
       }
     }
