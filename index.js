@@ -1,8 +1,7 @@
 const fs      = require('fs');
 const fetch   = require('node-fetch');
-const parser  = require('rss-to-json');
+const parser  = require('xml2json');
 const chalk   = require('chalk');
-
 
 
 module.exports = {
