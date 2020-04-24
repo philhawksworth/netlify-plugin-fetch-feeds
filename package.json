@@ -1,6 +1,6 @@
 {
   "name": "netlify-plugin-fetch-feeds",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A Netlify plugin to fetch and cache content from remote feeds including RSS and JSON",
   "main": "index.js",
   "repository": {
