@@ -39,7 +39,7 @@ module.exports = {
         // await saveFeed(JSON.stringify(data), dataFilePath);
         await fs.writeFileSync(dataFilePath, JSON.stringify(data));
         await utils.cache.save(dataFilePath, { ttl: feed.ttl });
-        console.log('Fetched and cached: ', chalk.blue(feed.url), chalk.gray(`(TTL:${feed.ttl} seconds)`));
+        console.log('Fetched and cached: ', chalk.yellow(feed.url), chalk.gray(`(TTL:${feed.ttl} seconds)`));
 
       }
     }
