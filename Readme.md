@@ -1,6 +1,6 @@
 # Netlify Plugin - Fetch Feeds
 
-This [plugin](https://www.netlify.com/build/plugins-beta?utm_source=github&utm_medium=plugin-htmlminifier-pnh&utm_campaign=devex) adds the ability to source content from remote feeds including RSS and JSON, and cache them between builds.
+This [plugin](https://www.netlify.com/build/plugins-beta?utm_source=github&utm_medium=plugin-fetchfeeds-pnh&utm_campaign=devex) adds the ability to source content from remote feeds including RSS and JSON, and cache them between builds.
 
 ## Overview
 
@@ -59,8 +59,8 @@ This plugin will fetch the specified feeds and stash their data prior to the exe
 
 ## Quick try-out
 
-You can try out this plugin by deploying [a simple site](https://test-plugin-html-minifer.netlify.app/) which uses it.
+You can try out this plugin by deploying [a simple site](https://demo-plugin-fetch-feeds.netlify.app/) which uses it.
 
-Clicking the button below will clone [a test site repo](https://github.com/philhawksworth/demo-netlify-plugin-fetch-feed), setup a new site [on Netlify](https://netlify.com?utm_source=github&utm_medium=plugin-fetchfeeds-pnh&utm_campaign=devex) and deploy the site complete with the plugin configured and operational.
+Clicking the button below will clone [a test site repo](https://github.com/philhawksworth/demo-netlify-plugin-fetch-feeds), setup a new site [on Netlify](https://netlify.com?utm_source=github&utm_medium=plugin-fetchfeeds-pnh&utm_campaign=devex) and deploy the site complete with the plugin configured and operational.
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/philhawksworth/demo-netlify-plugin-fetch-feed)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/philhawksworth/demo-netlify-plugin-fetch-feeds)
