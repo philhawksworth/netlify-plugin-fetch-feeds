@@ -9,6 +9,7 @@
   },
   "keywords": [
     "netlify",
+    "netlify-plugin",
     "rss",
     "ssg",
     "feed",
