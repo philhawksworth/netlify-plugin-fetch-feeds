@@ -7,6 +7,9 @@
     "type": "git",
     "url": "https://github.com/philhawksworth/netlify-plugin-fetch-feeds"
   },
+  "bugs": {
+    "url": "https://github.com/philhawksworth/netlify-plugin-fetch-feeds/issues"
+  },
   "keywords": [
     "netlify",
     "rss",
