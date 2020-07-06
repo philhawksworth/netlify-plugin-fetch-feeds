@@ -1,23 +1,9 @@
 const test = require('tape');
-const http = require('http');
+const simpleServer = require('./util/simpleServer');
 const fetchData = require('../fetchData');
 
-async function simpleServer (response, contentType) {
-  const server = http.createServer((_, res) => {
-    if (contentType) {
-      res.setHeader('Content-Type', contentType);
-    }
-    res.end(response);
-  });
-  await new Promise((resolve, reject) => {
-    server.on('error', reject);
-    server.listen(resolve);
-  });
-  return { server, url: `http://localhost:${server.address().port}` };
-}
-
 async function serveAndFetch({ content, contentType, feed = {} }, handler) {
-  const { server, url } = await simpleServer(content, contentType);
+  const { server, url } = await simpleServer({ content, contentType });
   try {
     feed.url = url;
     return handler({ data: await fetchData(feed), feed });
