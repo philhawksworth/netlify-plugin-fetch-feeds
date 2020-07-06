@@ -1,8 +1,6 @@
-const fs      = require('fs');
-const fetch   = require('node-fetch');
-const parser  = require('xml2json');
-const chalk   = require('chalk');
-
+const fs        = require('fs');
+const chalk     = require('chalk');
+const fetchData = require('./fetchData');
 
 module.exports = {
 
@@ -21,23 +19,10 @@ module.exports = {
       }
       // Or if it's not cached, let's fetch it and cache it.
       else {
-        var data = await fetch(feed.url)
-          .then(async function(res) {
+        const data = await fetchData(feed);
 
-            // Stash all data as JSON.
-            let contentType = res.headers.get('content-type').toLowerCase();
-            if(contentType == 'application/json') {
-              return res.json();
-            } else {
-              let text = await res.text();
-              let json = parser.toJson(text);
-              return JSON.parse(json);
-            }
-          });
-
-        // put the fetched data in the daa file, and then cahce it.
-        // await saveFeed(JSON.stringify(data), dataFilePath);
-        await fs.writeFileSync(dataFilePath, JSON.stringify(data));
+        // put the fetched data in the daa file, and then cache it.
+        await fs.writeFileSync(dataFilePath, data);
         await utils.cache.save(dataFilePath, { ttl: feed.ttl });
         console.log('Fetched and cached: ', chalk.yellow(feed.url), chalk.gray(`(TTL:${feed.ttl} seconds)`));
 
