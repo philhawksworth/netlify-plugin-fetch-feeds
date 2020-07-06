@@ -51,3 +51,23 @@ test('cached data is restored', async t => {
   t.equals(result, true, 'returns true to indicate that it was restored from cache');
   t.equals(restoreCalled, true, 'restore was called');
 });
+
+test('direct data comes without .json marker', async t => {
+  const name = 'non-cached';
+  const expectedPath = path.join(tmpPath, name);
+  const url = null;
+  const feed = { name, url, ttl: 10, type: 'direct' };
+  let restoreCalled = false;
+  const result = await processFeed({ 
+    has: () => true,
+    restore: async restorePath => {
+      restoreCalled = true;
+      t.equals(restorePath, expectedPath, 'the expected data path is based on the feeds name and the dataDir');
+    },
+    save: () => {
+      throw new Error('shouldnt save');
+    }
+  }, tmpPath, feed);
+  t.equals(result, true, 'returns true to indicate that it was restored from cache');
+  t.equals(restoreCalled, true, 'restore was called');
+});

@@ -3,7 +3,7 @@ const fetchData = require('./fetchData');
 
 module.exports = async function (cache, dataDir, feed) {
   // Where fetched data should reside in the buid
-  let dataFilePath = `${dataDir}/${feed.name}.json`;
+  const dataFilePath = `${dataDir}/${feed.name}${feed.type === 'direct' ? '' : '.json'}`;
 
   // reinstate from cache if it is present
   if ( await cache.has(dataFilePath) ) {

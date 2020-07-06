@@ -58,3 +58,15 @@ test('html content without contentType', async t => {
     t.equals(data, '{"html":{"body":"hi"}}', 'html content is returned even though contentType is not given');
   });
 });
+
+test('binary content without contentType, with direct-flag', async t => {
+  const content = '<html><body><![CDATA[hi]]></body></html>';
+  await serveAndFetch({
+    content,
+    feed: {
+      type: 'direct'
+    }
+  }, ({ data }) => {
+    t.equals(Buffer.from(data).toString(), content, 'fetching directly will not add any transformation');
+  });
+});
