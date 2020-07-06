@@ -64,3 +64,11 @@ test('html content', async t => {
     t.equals(data, '{"html":{"body":"hi"}}', 'html content is turned into structured json');
   });
 });
+
+test('html content without contentType', async t => {
+  await serveAndFetch({
+    content: '<html><body><![CDATA[hi]]></body></html>',
+  }, ({ data }) => {
+    t.equals(data, '{"html":{"body":"hi"}}', 'html content is returned even though contentType is not given');
+  });
+});

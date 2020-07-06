@@ -6,8 +6,8 @@ module.exports = async function fetchData (feed) {
     .then(async function(res) {
 
       // Stash all data as JSON.
-      let contentType = res.headers.get('content-type').toLowerCase();
-      if(contentType == 'application/json') {
+      let contentType = res.headers.get('content-type');
+      if(/^application\/json$/i.test(contentType)) {
         return res.json();
       } else {
         let text = await res.text();
