@@ -53,6 +53,12 @@ This plugin will fetch the specified feeds and stash their data prior to the exe
       name = "netlify"
       url = "https://www.netlify.com/blog/index.xml"
       ttl = 86400
+    [[plugins.inputs.feeds]]
+      # Content will not be processed if type is set to "direct". The path will be taken as-is.
+      type = "direct"
+      name = "Netlify_logo.svg"
+      url = "https://en.wikipedia.org/wiki/Netlify#/media/File:Netlify_logo.svg"
+      ttl = 86400
 ```
 
 
