@@ -1,3 +1,4 @@
 node_modules
 .netlify
 *.tgz
+package-lock.json
